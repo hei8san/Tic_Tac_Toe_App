@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridLayout;
+import androidx.gridlayout.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -46,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
             //already image set
             result.setText("Already placed. Choose another black space");
         }
-        if (judgeWinning(grid) && gameActive) {
+        if (judgeWinning(grid)) {
             StringBuilder winner = new StringBuilder();
-            gameActive = false;
+
             if (!red) {
                 winner.append("Red");
             } else {
@@ -63,7 +63,10 @@ public class MainActivity extends AppCompatActivity {
         GridLayout gridlayout = findViewById(R.id.gridLayoutBoard);
         for(int i = 0;i < gridlayout.getChildCount(); i++ )  {
             ImageView counter = (ImageView) gridlayout.getChildAt(i);
+            counter.setImageDrawable(null);
         }
+        loadActivity();
+
     }
 
     public boolean judgeWinning(char[][] grid) {
@@ -130,8 +133,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        loadActivity();
+
+    }
+    private void loadActivity() {
         grid = new char[numberOfRowCol][numberOfRowCol];
-        for (int row = 0; row < numberOfRowCol; row++) {
+        for (int row = 0; row < numberOfRowCol; row++) { //initialize 2d array "grid" to different characters
             for (int col = 0; col < numberOfRowCol; col++) {
                 char c = (char) ((char)row+col);
                 grid[row][col] = c;
@@ -140,15 +147,8 @@ public class MainActivity extends AppCompatActivity {
         Log.i("Info", "char 2d array created");
         result = findViewById(R.id.resultText);
         count = 0;
-
-    }
-    private void loadActivity() {
-        // Do all of your work here
+        result.setText("");
     }
 
-    private View.OnClickListener ReloadActivity = new View.OnClickListener() {
-        public void onClick(View v) {
-            loadActivity();
-        }
-    };
+
 }
