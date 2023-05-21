@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/gridLayoutBoard"
+        android:layout_width="390dp"
+        android:layout_height="390dp"
+        android:background="@drawable/grid_board_ten"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resetBTN">
+
+
+        <ImageView
+            android:id="@+id/r1c0ImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="5dp"
+            android:onClick="imageClick"
+            app:layout_column="0"
+            app:layout_row="1"
+            android:tag="3"/>
+
+
+        <ImageView
+            android:id="@+id/r1c1ImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="5dp"
+            android:onClick="imageClick"
+            app:layout_column="1"
+            app:layout_row="1"
+            android:tag="4"/>
+
+        <ImageView
+            android:id="@+id/r2c1ImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="5dp"
+            android:onClick="imageClick"
+            app:layout_column="1"
+            app:layout_row="2"
+            android:tag="7"/>
+
+        <ImageView
+            android:id="@+id/r0c1ImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="5dp"
+            android:onClick="imageClick"
+            app:layout_column="1"
+            app:layout_row="0"
+            android:tag="1"/>
+
+        <ImageView
+            android:id="@+id/r1c2ImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="5dp"
+            android:onClick="imageClick"
+            app:layout_column="2"
+            app:layout_row="1"
+            android:tag="5"/>
+
+        <ImageView
+            android:id="@+id/r2c2ImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="5dp"
+            android:onClick="imageClick"
+            app:layout_column="2"
+            app:layout_row="2"
+            android:tag="8"/>
+
+        <ImageView
+            android:id="@+id/r0c2ImageView"
+
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="5dp"
+            android:onClick="imageClick"
+            app:layout_column="2"
+            app:layout_row="0" />
+
+        <ImageView
+            android:id="@+id/r2c0ImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="5dp"
+            android:onClick="imageClick"
+            app:layout_column="0"
+            app:layout_row="2"
+            android:tag="6"/>
+
+        <ImageView
+            android:id="@+id/r0c0ImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_margin="5dp"
+            android:onClick="imageClick"
+            app:layout_column="0"
+            app:layout_row="0"
+            android:tag="0"/>
+    </androidx.gridlayout.widget.GridLayout>
+
+    <Button
+        android:id="@+id/resetBTN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="resetBTNClicked"
+        android:text="Reset"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/resultText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="66dp"
+        android:layout_marginBottom="19dp"
+        android:ems="10"
+        android:fontFamily="sans-serif-black"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayoutBoard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/resetBTN" />
+    <!--    <Button-->
+    <!--        android:id="@+id/redBTN"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="Red"-->
+    <!--        />-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
