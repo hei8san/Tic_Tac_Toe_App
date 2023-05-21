@@ -2,6 +2,7 @@ package online.ksawa.simpleothelloapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,12 +11,15 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
     char[][] grid;
     boolean red = true;
     TextView result;
     int count;
     static int numberOfRowCol = 3;
+    boolean gameActive = true;
 
     public void imageClick(View view) {
         Log.i("Info", "Image clicked");
@@ -42,9 +46,10 @@ public class MainActivity extends AppCompatActivity {
             //already image set
             result.setText("Already placed. Choose another black space");
         }
-        if (judgeWining(grid)) {
+        if (judgeWinning(grid) && gameActive) {
             StringBuilder winner = new StringBuilder();
-            if (red) {
+            gameActive = false;
+            if (!red) {
                 winner.append("Red");
             } else {
                 winner.append("Yellow");
@@ -54,48 +59,65 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void resetBTNClicked(View view) {
-//        Button resetBTN = findViewById(view.getId());
-//        grid = new char[3][3];
         Log.i("Info", "reset BTN clicked");
+        GridLayout gridlayout = findViewById(R.id.gridLayoutBoard);
+        for(int i = 0;i < gridlayout.getChildCount(); i++ )  {
+            ImageView counter = (ImageView) gridlayout.getChildAt(i);
+        }
     }
 
-    public boolean judgeWining(char[][] grid) {
-        int numberOfGird = (int) (Math.pow((double) numberOfRowCol, (double) 2));
-        Log.i("Info", "number of Grid: " + Integer.toString(numberOfGird));
-        int count = numberOfGird - (numberOfGird / 2);
-        Log.i("Info", "count: " + Integer.toString(count));
+    public boolean judgeWinning(char[][] grid) {
+        int numberOfRowCol = grid.length;
 
-        boolean isRowCheck = true;
-        boolean isColCheck = true;
-        boolean leftToRight = true;
-        boolean rightToLeft = true;
-//        while(count >= 0){
-//            count--;
-        for (int row = 0; row < numberOfRowCol; row++) {
+        boolean isRowCheck;
+        boolean isColCheck;
+        boolean isLeftToRightDiagonalCheck = true;
+        boolean isRightToLeftDiagonalCheck = true;
+
+        Log.i("Info", Arrays.deepToString(grid));
+        // Check rows and columns
+        for (int i = 0; i < numberOfRowCol; i++) {
             isRowCheck = true;
-            char rowFirstChar = ' ';
             isColCheck = true;
-            char colFirstChar = ' ';
-            for (int col = 0; col < numberOfRowCol; col++) {
-                if (col == 0) {
-                    rowFirstChar = grid[row][col];
-                    colFirstChar = grid[col][row];
-                    continue;
-                }
-                if (grid[row][col] != rowFirstChar) {
+
+            char rowFirstChar = grid[i][0];
+            Log.i("Info", "rowFirstChar: "+Character.toString(rowFirstChar));
+            char colFirstChar = grid[0][i];
+            Log.i("Info", "colFirstChar: "+Character.toString(colFirstChar));
+
+
+            for (int j = 0; j < numberOfRowCol; j++) {
+                if (grid[i][j] != rowFirstChar) {
                     isRowCheck = false;
                 }
-                if (grid[col][row] != colFirstChar) {
+                if (grid[j][i] != colFirstChar) {
                     isColCheck = false;
                 }
             }
-            if (isColCheck || isRowCheck) {
+
+            if (isRowCheck || isColCheck) {
                 return true;
             }
-//            }
         }
+
+        // Check diagonals
+        char diagonalFirstChar = grid[0][0];
+        for (int i = 0; i < numberOfRowCol; i++) {
+            if (grid[i][i] != diagonalFirstChar) {
+                isLeftToRightDiagonalCheck = false;
+            }
+            if (grid[i][numberOfRowCol - i - 1] != diagonalFirstChar) {
+                isRightToLeftDiagonalCheck = false;
+            }
+        }
+
+        if (isLeftToRightDiagonalCheck || isRightToLeftDiagonalCheck) {
+            return true;
+        }
+
         return false;
     }
+
 
     public boolean isImageSet(char[][] grid, int row, int col) {
         if (grid[row][col] == 'r' || grid[row][col] == 'y') {
@@ -109,9 +131,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         grid = new char[numberOfRowCol][numberOfRowCol];
+        for (int row = 0; row < numberOfRowCol; row++) {
+            for (int col = 0; col < numberOfRowCol; col++) {
+                char c = (char) ((char)row+col);
+                grid[row][col] = c;
+            }
+        }
         Log.i("Info", "char 2d array created");
         result = findViewById(R.id.resultText);
         count = 0;
 
     }
+    private void loadActivity() {
+        // Do all of your work here
+    }
+
+    private View.OnClickListener ReloadActivity = new View.OnClickListener() {
+        public void onClick(View v) {
+            loadActivity();
+        }
+    };
 }
